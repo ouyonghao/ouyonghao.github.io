@@ -2,7 +2,7 @@
 <html lang="chinese (simplified)">
 <head>
     <meta charset="utf-8">
-    <title>碎琼乱玉 - ABOUT</title>
+    <title>碎琼乱玉 - Record about Deploying VPS</title>
     <meta name="description" content="">
     <meta name="author" content="oyh">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -54,24 +54,79 @@
     <div class="row">
 
         <div class="span9">
-        
-<section id="content" class="body">    
-    <h2 class="content-title">
-        ABOUT
-    </h2>
-    <h3>About author:</h3>
-<ul>
-<li>昵称：碎琼乱玉</li>
-<li>name: oyhowen</li>
-</ul>
-<p><img alt="我的头像" src="https://ouyonghao.github.io/images/my_head.png"></p>
-<h3>Contact me:</h3>
-<ul>
-<li>Email: <a href="http://www.hotmail.com">ouyonghaoforowen@hotmail.com</a></li>
-<li>Weibo: <a href="http://weibo.com/oyhowen823">@碎琼乱玉</a></li>
-<li>Scholat: <a href="http://www.scholat.com/ouyh">@ouyonghao</a></li>
-</ul>
-</section>
+    <div class='article'>
+        <div class="content-title">
+            <h1>Record about Deploying VPS</h1>
+Mon 10 April 2017
+
+by <a class="url fn" href="https://ouyonghao.github.io/author/oyh.html">oyh</a>
+ 
+
+
+        </div>
+	
+        <div><p>Summary： A detailed record about install VPS</p>
+<h2>Background | Why I do this</h2>
+<p>Yester I publish my static blog powered by <a href="https://github.com/getpelican/pelican">pelican</a>, Because pelican support different types of syntax (like reStructuredText, Markdown), so it require me to learn a syntax first. I choose Markdown without any hesitation since the first time I have seen it, compared with reStructuredText which uses two semi-colon to wrap the metadata in the front of the file. It seen a bit nerd to me.</p>
+<p>So I began to read the Markdown syntax. Though the syntax is easy to understand when  I read the document of it,  I still wondered I could remember those characters. Something amazing happened to me when I went to search the WYSIWYG editor of Markdown, Atom + <a href="https://github.com/shd101wyy/markdown-preview-enhanced">markdown-preview-enhanced</a> plugin is an amazing tools to write Markdown file.
+Installing the atom is simple, but the installations of its plugins are quite complex under GFW. A VPS seems to be necessary.</p>
+<blockquote>
+<p>Document of Markdown: <a href="http://http://daringfireball.net/projects/markdown/syntax">English </a>        <a href="http://http://www.appinn.com/markdown/">中文</a></p>
+</blockquote>
+<h2>Choose a Operator</h2>
+<p>There are lots of Virtual Network Operators you could choose. I recommend Host1plus which offers great buys on Virtual Private Service. Its lowest price is at $2.5 per month.</p>
+<p>More operators you could get on the search engine.</p>
+<h2>Configure your server</h2>
+<p>After you register, blind your service, you first connect to the server through ssh service using Putty or Xshell.</p>
+<h3>1. Change SSH Port</h3>
+<p>Nowadays, network attacks would screen Port 22 and hack your server with the Exhaustive method to crack the password. So The first step is to change your ssh port</p>
+<div class="highlight"><pre><span></span>[user@localhost]$vi /etc/ssh/sshd_config
+</pre></div>
+
+
+<p>In vi using <code>/</code> to search "# Port 22", then add another line type "Port X"$X\in(0, 65535)$， <code>ESC</code> and  <code>:wq</code> to quit Edit mode, save and quit the file.
+Then restart ssh service with new command in Centos.</p>
+<div class="highlight"><pre><span></span>[user@localhost]$systemctl restart sshd.service
+</pre></div>
+
+
+<p>You could open a new terminal to test whether the customized port is available or not. If failed, you should go to check the iptables firewall and configure it to allow your port X to work normally.(A simple work is to copy the default configure of Port 22 and change the number to X, operation is the same)</p>
+<div class="highlight"><pre><span></span>[user@localhost]$service iptables status
+[user@localhost]$vi /etc/sysconfig/iptables
+[user@localhost]systemctl restart iptables.
+</pre></div>
+
+
+<p>Done! You can connnet your server with the new port X.</p>
+<blockquote>
+<p>For more info about firewall  click <a href="https://linux.cn/article-8278-1.html">here</a>.</p>
+</blockquote>
+<h3>2. Forbid log in through Administrator, add new user</h3>
+<p>Add new user</p>
+<div class="highlight"><pre><span></span>[user@localhost]$useradd newuser # add a new user
+[user@localhost]$passwd newsuser # configure a password
+</pre></div>
+
+
+<p>and the delete <code>#</code> in front of "PermitRootLogin: yes" and figure it to no.
+For convenience, add the new user into <code>/etc/sudoers</code>:</p>
+<div class="highlight"><pre><span></span>[user@localhost]$sudo visudo
+</pre></div>
+
+
+<p>find "[root]    ALL=(ALL:ALL)   ALL" and add:</p>
+<div class="highlight"><pre><span></span>[user]    ALL=(ALL:ALL)   ALL
+</pre></div>
+
+
+<p>Then you could use <code>sudo</code> command in user time.</p>
+<blockquote>
+<p>For more info about sudo command click <a href="https://linux.cn/article-8278-1.html">here</a>.</p>
+</blockquote></div>
+	
+        <hr>
+
+    </div>
         </div>
         
         <div class="span3">
