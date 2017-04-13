@@ -60,6 +60,10 @@
 <table class="table">
     <tbody>
         <tr>
+        <td>2017 Apr 12</td>
+        <td><a href='https://ouyonghao.github.io/2017Apr/Mechanism of pelican-ipynb (a pelican-plugins).html'>Mechanism of pelican-ipynb (a pelican-plugins)</a></td>
+        </tr>
+        <tr>
         <td>2017 Apr 10</td>
         <td><a href='https://ouyonghao.github.io/2017Apr/install-VPS.html'>Record about Deploying VPS</a></td>
         </tr>
@@ -152,10 +156,26 @@
 
         </div>  
     </div>     </div> 
+<!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$']],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    messageStyle: "none",
+    "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 <footer>
 <br />
 <p>
-<a href="https://ouyonghao.github.io">碎琼乱玉</a> &copy; oyh 2017-04-10
+<a href="https://ouyonghao.github.io">碎琼乱玉</a> &copy; oyh 2017-04-12
 powered by <a href="https://blog.getpelican.com/" target="view_windows">pelican</a>
 </p>
 </footer>
@@ -164,14 +184,7 @@ powered by <a href="https://blog.getpelican.com/" target="view_windows">pelican<
 
 
 <script src="https://ouyonghao.github.io/theme/bootstrap-collapse.js"></script>
-<script>
-(function(){
-    var bp = document.createElement('script');
-    bp.src = '//push.zhanzhang.baidu.com/push.js';
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
+
  
 </body>
 </html>

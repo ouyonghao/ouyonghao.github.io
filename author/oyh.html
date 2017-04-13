@@ -61,8 +61,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="https://ouyonghao.github.io/2017Apr/install-VPS.html"><h1>Record about Deploying VPS</h1></a>
-Mon 10 April 2017
+            <a href="https://ouyonghao.github.io/2017Apr/Mechanism of pelican-ipynb (a pelican-plugins).html"><h1>Mechanism of pelican-ipynb (a pelican-plugins)</h1></a>
+Wed 12 April 2017
 
 by <a class="url fn" href="https://ouyonghao.github.io/author/oyh.html">oyh</a>
  
@@ -71,67 +71,185 @@ by <a class="url fn" href="https://ouyonghao.github.io/author/oyh.html">oyh</a>
  
         </div>
         
-        <div><p>Summary： A detailed record about install VPS</p>
-<h2>Background | Why I do this</h2>
-<p>Yester I publish my static blog powered by <a href="https://github.com/getpelican/pelican">pelican</a>, Because pelican support different types of syntax (like reStructuredText, Markdown), so it require me to learn a syntax first. I choose Markdown without any hesitation since the first time I have seen it, compared with reStructuredText which uses two semi-colon to wrap the metadata in the front of the file. It seen a bit nerd to me.</p>
-<p>So I began to read the Markdown syntax. Though the syntax is easy to understand when  I read the document of it,  I still wondered I could remember those characters. Something amazing happened to me when I went to search the WYSIWYG editor of Markdown, Atom + <a href="https://github.com/shd101wyy/markdown-preview-enhanced">markdown-preview-enhanced</a> plugin is an amazing tools to write Markdown file.
-Installing the atom is simple, but the installations of its plugins are quite complex under GFW. A VPS seems to be necessary.</p>
-<blockquote>
-<p>Document of Markdown: <a href="http://http://daringfireball.net/projects/markdown/syntax">English </a>        <a href="http://http://www.appinn.com/markdown/">中文</a></p>
-</blockquote>
-<h2>Choose a Operator</h2>
-<p>There are lots of Virtual Network Operators you could choose. I recommend Host1plus which offers great buys on Virtual Private Service. Its lowest price is at $2.5 per month.</p>
-<p>More operators you could get on the search engine.</p>
-<h2>Configure your server</h2>
-<p>After you register, blind your service, you first connect to the server through ssh service using Putty or Xshell.</p>
-<h3>1. Change SSH Port</h3>
-<p>Nowadays, network attacks would screen Port 22 and hack your server with the Exhaustive method to crack the password. So The first step is to change your ssh port</p>
-<div class="highlight"><pre><span></span>[user@localhost]$vi /etc/ssh/sshd_config
+        <div><p>Summary： A analysis about pelican-plugins of ipynb</p>
+<h2>Background | why I post this</h2>
+<p>知其然更要知其所以然，方便分析</p>
+<h3>Mechanisim</h3>
+<p>插件主要由四个文件组成：</p>
+<div class="highlight"><pre><span></span>    __init__.py         # 将当前目录下的所有`.py `文件组织成包
+    core.py             # core 模块将 `.ipynb` 转换为 `.html`，并且添加某些功能
+    ipynb.py
+    liquid.py
+    makrup.py
 </pre></div>
 
 
-<p>In vi using <code>/</code> to search "# Port 22", then add another line type "Port X"$X\in(0, 65535)$， <code>ESC</code> and  <code>:wq</code> to quit Edit mode, save and quit the file.
-Then restart ssh service with new command in Centos.</p>
-<div class="highlight"><pre><span></span>[user@localhost]$systemctl restart sshd.service
+<h3>core.py</h3>
+<p>首先引入__future__ 模块解决版本问题，正则表达式库，Ipython库
+接着通过try-except 根据不同版本 导入不同的库</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">traitlets.config</span> <span class="kn">import</span> <span class="n">Config</span>
+<span class="kn">from</span> <span class="nn">traitlets</span> <span class="kn">import</span> <span class="n">Integer</span>
+<span class="kn">from</span> <span class="nn">nbconvert.preprocessors</span> <span class="kn">import</span> <span class="n">Preprocessor</span>
+<span class="kn">import</span> <span class="nn">nbconvert</span>
+<span class="kn">from</span> <span class="nn">nbconvert.exporters</span> <span class="kn">import</span> <span class="n">HTMLExporter</span>
+<span class="kn">from</span> <span class="nn">nbconvert.filters.highlight</span> <span class="kn">import</span> <span class="n">_pygments_highlight</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">from</span> <span class="nn">pygments.formatters</span> <span class="kn">import</span> <span class="n">HtmlFormatter</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcop</span>
 </pre></div>
 
 
-<p>You could open a new terminal to test whether the customized port is available or not. If failed, you should go to check the iptables firewall and configure it to allow your port X to work normally.(A simple work is to copy the default configure of Port 22 and change the number to X, operation is the same)</p>
-<div class="highlight"><pre><span></span>[user@localhost]$service iptables status
-[user@localhost]$vi /etc/sysconfig/iptables
-[user@localhost]systemctl restart iptables.
+<p>自定义一个 LATEX_CUSTOM_SCRIPT</p>
+<p>定义三个函数</p>
+<div class="highlight"><pre><span></span><span class="c1"># 从 .ipynb 的 绝对路径与自定义需要转换的 cell 列表 返回content=html内容和info</span>
+<span class="n">get_html_from_filepath</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+
+<span class="c1"># 如果ignore_css为True，在content后插入Latex script</span>
+<span class="c1"># 如果False,只返回ipython的css+content+Latex script</span>
+<span class="n">fix_css</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">ignore_css</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+<span class="c1"># 自定义python高亮并作部分标签的属性值替换    </span>
+<span class="n">custom_highlighter</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="s1">&#39;python&#39;</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
 </pre></div>
 
 
-<p>Done! You can connnet your server with the new port X.</p>
-<blockquote>
-<p>For more info about firewall  click <a href="https://linux.cn/article-8278-1.html">here</a>.</p>
-</blockquote>
-<h3>2. Forbid log in through Administrator, add new user</h3>
-<p>Add new user</p>
-<div class="highlight"><pre><span></span>[user@localhost]$useradd newuser # add a new user
-[user@localhost]$passwd newsuser # configure a password
+<p>并定义了两个子类</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SliceIndex</span><span class="p">(</span><span class="n">Integer</span><span class="p">)</span>
+    <span class="c1"># 验证分割notebook cell的合法性</span>
+<span class="k">class</span> <span class="nc">SubCell</span><span class="p">(</span><span class="n">Preprocessor</span><span class="p">)</span>
+    <span class="c1"># 定义一个过程器，返回用户定义后的nbc文件和resources</span>
 </pre></div>
 
 
-<p>and the delete <code>#</code> in front of "PermitRootLogin: yes" and figure it to no.
-For convenience, add the new user into <code>/etc/sudoers</code>:</p>
-<div class="highlight"><pre><span></span>[user@localhost]$sudo visudo
+<h3>ipynb.py</h3>
+<p>调用插件时首先导入的文件</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">.core</span> <span class="kn">import</span> <span class="o">*</span>      <span class="c1"># 从本包的core.py导入所有文件</span>
 </pre></div>
 
 
-<p>find "[root]    ALL=(ALL:ALL)   ALL" and add:</p>
-<div class="highlight"><pre><span></span>[user]    ALL=(ALL:ALL)   ALL
+<h3>liquid.py</h3>
+<p>Mode B: Liquid Tags <code>PLUGINS = ['ipynb.liquid']</code></p>
+<p>通过在<code>.md</code>文件中嵌入<code>notebook</code>的方法显示notebook
+从包内的.core 导入核心的两个函数和<code>liquid_tags</code>插件导入<code>LiquidTags.py</code></p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">liquid_tags.mdx_liquid_tags</span> <span class="kn">import</span> <span class="n">LiquidTags</span>
+
+<span class="kn">from</span> <span class="nn">.core</span> <span class="kn">import</span> <span class="n">get_html_from_filepath</span><span class="p">,</span> <span class="n">fix_css</span>
 </pre></div>
 
 
-<p>Then you could use <code>sudo</code> command in user time.</p>
-<blockquote>
-<p>For more info about sudo command click <a href="https://linux.cn/article-8278-1.html">here</a>.</p>
-</blockquote></div>
+<p>定义在Markdown文件中插入文件的语法</p>
+<div class="highlight"><pre><span></span><span class="n">SYNTAX</span> <span class="o">=</span> <span class="s2">&quot;{</span><span class="se">\\</span><span class="s2">% notebook ~/absolute/path/to/notebook.ipynb [cells[start:end]] </span><span class="se">\\</span><span class="s2">%}&quot;</span>
+</pre></div>
+
+
+<p>定义分解用的正则表达式,这里使用了<code>(?P&lt;name&gt;...)</code>capture group 来对匹配的group命名，方便后续引用</p>
+<div class="highlight"><pre><span></span><span class="n">FORMAT</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        ^(\s+)?                                                # whitespace</span>
+<span class="s2">        (?P&lt;src&gt;\S+)                                           # source path</span>
+<span class="s2">        (\s+)?                                                 # whitespace</span>
+<span class="s2">        ((cells\[)(?P&lt;start&gt;-?[0-9]*):(?P&lt;end&gt;-?[0-9]*)(\]))?  # optional cells</span>
+<span class="s2">        (\s+)?$                                                # whitespace</span>
+<span class="s2">        &quot;&quot;&quot;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">)</span>
+</pre></div>
+
+
+<p>接着通过一个<code>liquid_tags</code>的修饰器，使得在插件中使用notebook tag，自动调用过程器完成格式转换</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nd">@LiquidTags.register</span><span class="p">(</span><span class="s1">&#39;notebook&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">notebook</span><span class="p">(</span><span class="n">preprocessor</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">markup</span><span class="p">):</span>
+    <span class="c1"># 匹配正则表达式并对匹配的地址、开始结束标签赋值</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="n">FORMAT</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">markup</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+        <span class="n">argdict</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">groupdict</span><span class="p">()</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="n">argdict</span><span class="p">[</span><span class="s1">&#39;src&#39;</span><span class="p">]</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">argdict</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">argdict</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Error processing input, &quot;</span>
+                         <span class="s2">&quot;expected syntax: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">SYNTAX</span><span class="p">))</span>
+
+    <span class="n">start</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">start</span><span class="p">)</span> <span class="k">if</span> <span class="n">start</span> <span class="k">else</span> <span class="mi">0</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">end</span><span class="p">)</span> <span class="k">if</span> <span class="n">end</span> <span class="k">else</span> <span class="bp">None</span>
+
+    <span class="c1"># nb_dir =  preprocessor.configs.getConfig(&#39;NOTEBOOK_DIR&#39;)</span>
+
+    <span class="c1"># 通过字符串合并得到.ipynb 的地址</span>
+    <span class="n">nb_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">,</span> <span class="n">src</span><span class="p">)</span>
+    <span class="c1"># .ipynb -&gt; .html</span>
+    <span class="n">content</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">get_html_from_filepath</span><span class="p">(</span><span class="n">nb_path</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">end</span><span class="p">)</span>
+    <span class="c1"># 从preprocessor 配置中队ignore_css 赋值为False</span>
+    <span class="n">ignore_css</span> <span class="o">=</span> <span class="n">preprocessor</span><span class="o">.</span><span class="n">configs</span><span class="o">.</span><span class="n">getConfig</span><span class="p">(</span><span class="s1">&#39;IPYNB_IGNORE_CSS&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+    <span class="c1"># 修改css</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">fix_css</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">ignore_css</span><span class="o">=</span><span class="n">ignore_css</span><span class="p">)</span>
+    <span class="c1"># 保存content</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">preprocessor</span><span class="o">.</span><span class="n">configs</span><span class="o">.</span><span class="n">htmlStash</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">safe</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="c1"># 返回转换的内容</span>
+    <span class="k">return</span> <span class="n">content</span>
+</pre></div>
+</td></tr></table>
+
+<p>最后导入<code>register</code></p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">liquid_tags</span> <span class="kn">import</span> <span class="n">register</span> <span class="c1"># noqa</span>
+</pre></div>
+
+
+<h2>pip Usage Tips</h2>
+<p>使用python 包管理软件 pip 查看已安装的包</p>
+<div class="highlight"><pre><span></span>pip list
+pip freeze &gt; requirements.txt       # 生成`requirements.txt`    
+pip install -r requirements.txt     # 文件方便其他使用者
+</pre></div></div>
         <hr />
     </div>
 		
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="https://ouyonghao.github.io/2017Apr/install-VPS.html"><h2>Record about Deploying VPS</h2></a>
+        <div class= "well small"> Mon 10 April 2017
+
+by <a class="url fn" href="https://ouyonghao.github.io/author/oyh.html">oyh</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>Summary： A detailed record about install VPS</p>
+<h2>Background | Why I do this</h2>
+<p>Yester I publish my static blog powered by <a href="https://github.com/getpelican/pelican">pelican</a>, Because pelican support different types of syntax (like reStructuredText, Markdown), so it require me to learn a syntax first. I choose Markdown without any hesitation since the first time …</p> <a class="btn btn-info xsmall" href="https://ouyonghao.github.io/2017Apr/install-VPS.html">read more</a></div>
+    </div>	
+				
 
  
         
@@ -185,43 +303,7 @@ by <a class="url fn" href="https://ouyonghao.github.io/author/oyh.html">oyh</a>
 
 
  </div>
-        <div class="summary"><p>To display line numbers, use a path-less shebang instead of colons:</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env …</span></pre></div></td></tr></table> <a class="btn btn-info xsmall" href="https://ouyonghao.github.io/2017Apr/my-test.html">read more</a></div>
+        <div class="summary"><p>This is a test file of pelican (including themes, plugins)</p> <a class="btn btn-info xsmall" href="https://ouyonghao.github.io/2017Apr/my-test.html">read more</a></div>
     </div>	
 				
 <div class="pagination">
@@ -313,10 +395,26 @@ by <a class="url fn" href="https://ouyonghao.github.io/author/oyh.html">oyh</a>
 
         </div>  
     </div>     </div> 
+<!-- mathjax config similar to math.stackexchange -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$']],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    messageStyle: "none",
+    "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 <footer>
 <br />
 <p>
-<a href="https://ouyonghao.github.io">碎琼乱玉</a> &copy; oyh 2017-04-10
+<a href="https://ouyonghao.github.io">碎琼乱玉</a> &copy; oyh 2017-04-12
 powered by <a href="https://blog.getpelican.com/" target="view_windows">pelican</a>
 </p>
 </footer>
@@ -325,14 +423,7 @@ powered by <a href="https://blog.getpelican.com/" target="view_windows">pelican<
 
 
 <script src="https://ouyonghao.github.io/theme/bootstrap-collapse.js"></script>
-<script>
-(function(){
-    var bp = document.createElement('script');
-    bp.src = '//push.zhanzhang.baidu.com/push.js';
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
+
  
 </body>
 </html>
