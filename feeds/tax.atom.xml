@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>碎琼乱玉 - Tax</title><link href="https://ouyonghao.github.io/" rel="alternate"></link><link href="https://ouyonghao.github.io/feeds/tax.atom.xml" rel="self"></link><id>https://ouyonghao.github.io/</id><updated>2017-04-10T22:40:00+08:00</updated><entry><title>税务评估（分析）</title><link href="https://ouyonghao.github.io/2017Apr/tax_evaluation_intro.html" rel="alternate"></link><published>2017-04-10T12:20:00+08:00</published><updated>2017-04-10T22:40:00+08:00</updated><author><name>oyh</name></author><id>tag:ouyonghao.github.io,2017-04-10:/2017Apr/tax_evaluation_intro.html</id><summary type="html">&lt;p&gt;Summary： Class note about tax analysis|税务会计课堂笔记&lt;/p&gt;
+&lt;h2&gt;税务评估（分析）：&lt;/h2&gt;
+&lt;p&gt;税务评估是我国1995年引入的概念，叫税务分析更恰当。
+通过行业数据（预警值？离异值）&lt;/p&gt;
+&lt;h3&gt;利润表&lt;/h3&gt;
+&lt;p&gt;从利润表观察，如果营业收入（旧叫法：主营业务收入）增加$\Uparrow$&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    营业成本  增加  与收入配也应该增加   ——通过增长率的对比
+    税收      增加  与成本类似          ——通过流转税的税负率
+    销售费用
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;注&lt;/code&gt; 管理费用增长的速度可能不匹配&lt;/p&gt;
+&lt;h3&gt;资产负债表&lt;/h3&gt;
+&lt;p&gt;从资产负债表观察，如果营业收入$\Uparrow$， 相应地&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    货币资金    正常情况下，收入增长，企业货币资金长          
+    应收账款    如果赊销过多，占用了企业的自由资金，考虑货币价值
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;如果营业收入没有增长（持平）甚至下降，但是&lt;code&gt;货币资金 …&lt;/code&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;Summary： Class note about tax analysis|税务会计课堂笔记&lt;/p&gt;
+&lt;h2&gt;税务评估（分析）：&lt;/h2&gt;
+&lt;p&gt;税务评估是我国1995年引入的概念，叫税务分析更恰当。
+通过行业数据（预警值？离异值）&lt;/p&gt;
+&lt;h3&gt;利润表&lt;/h3&gt;
+&lt;p&gt;从利润表观察，如果营业收入（旧叫法：主营业务收入）增加$\Uparrow$&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    营业成本  增加  与收入配也应该增加   ——通过增长率的对比
+    税收      增加  与成本类似          ——通过流转税的税负率
+    销售费用
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;注&lt;/code&gt; 管理费用增长的速度可能不匹配&lt;/p&gt;
+&lt;h3&gt;资产负债表&lt;/h3&gt;
+&lt;p&gt;从资产负债表观察，如果营业收入$\Uparrow$， 相应地&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    货币资金    正常情况下，收入增长，企业货币资金长          
+    应收账款    如果赊销过多，占用了企业的自由资金，考虑货币价值
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;如果营业收入没有增长（持平）甚至下降，但是&lt;code&gt;货币资金&lt;/code&gt;却增长，企业有可能隐藏了收入&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    借：银行存款
+        贷：应收账款
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;注&lt;/code&gt; 此时应该重点观察企业的6个往来账户
+制造企业通常可以观察其原料耗用（现在也用辅料资料进行评估）
+如果性质相当，过往营业能力相同的两个企业，其中一个企业利润偏低：
+企业说机器设备老——故障率$\Uparrow$——需要提供相关的故障资料
+企业说工人素质低——故障率$\Uparrow$——工人资料？故障的记录&lt;/p&gt;
+&lt;p&gt;没有相关的证据，企业自行更改~&lt;/p&gt;
+&lt;h3&gt;现金流量表&lt;/h3&gt;
+&lt;p&gt;今年来开始作为观察的表，因为过往的政府税务人员相关知识更新不上，相对其他两表，此表更为复杂；&lt;/p&gt;
+&lt;p&gt;案头分析：前往现场调查、 取证
+风险大——（相关案例，赖昌星|虚开增值税发票退税|稽查局资料|大火）&lt;/p&gt;</content><category term="Tax"></category></entry></feed>

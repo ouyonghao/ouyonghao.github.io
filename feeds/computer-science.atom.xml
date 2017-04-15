@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>碎琼乱玉 - Computer Science</title><link href="https://ouyonghao.github.io/" rel="alternate"></link><link href="https://ouyonghao.github.io/feeds/computer-science.atom.xml" rel="self"></link><id>https://ouyonghao.github.io/</id><updated>2017-04-15T16:40:00+08:00</updated><entry><title>Code</title><link href="https://ouyonghao.github.io/2017Apr/Code.html" rel="alternate"></link><published>2017-04-15T12:13:00+08:00</published><updated>2017-04-15T16:40:00+08:00</updated><author><name>oyh</name></author><id>tag:ouyonghao.github.io,2017-04-15:/2017Apr/Code.html</id><summary type="html">&lt;p&gt;Summary： Reading note of 'code'&lt;/p&gt;
+&lt;p&gt;code(kod)...&lt;/p&gt;
+&lt;p&gt;3.b A system of symbols, letters. or words given certain arbitray meanings, used for transportring messages requiring secrecy or brevity.&lt;/p&gt;
+&lt;p&gt;signal-&amp;gt; data -&amp;gt; information&lt;/p&gt;
+&lt;h1&gt;1.How we chat with each other in a client and dark environmet&lt;/h1&gt;
+&lt;p&gt;represent 'how are you'
+A-&amp;gt;1 …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Summary： Reading note of 'code'&lt;/p&gt;
+&lt;p&gt;code(kod)...&lt;/p&gt;
+&lt;p&gt;3.b A system of symbols, letters. or words given certain arbitray meanings, used for transportring messages requiring secrecy or brevity.&lt;/p&gt;
+&lt;p&gt;signal-&amp;gt; data -&amp;gt; information&lt;/p&gt;
+&lt;h1&gt;1.How we chat with each other in a client and dark environmet&lt;/h1&gt;
+&lt;p&gt;represent 'how are you'
+A-&amp;gt;1, B-&amp;gt;2, C-&amp;gt;3 ... Z-&amp;gt;26  total 131
+Morese Code         total 32&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;? What is the mechanism of reduing code time
+Reducing code times by combine those Letters with a high frequency in a short code lie 'E' and 'T' in Morese Code;
+Using all combination of the code bit&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Morese Code Sheet the next sheet is two times than the former one:
+1 sheet 2
+2 shhet 4
+3 sheet 8
+4 sheet 16&lt;/p&gt;
+&lt;p&gt;Total 2+4+8+16=30&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;? Why we represent 00 for 0, 01 for 1, 10 for 2 ... but not 0 for 0, 1 for 1, 01 for 2?
+&lt;em&gt; The former use 2 bit to represent 4 different numbers, It can be normalized and convenient for remembering.
+&lt;/em&gt; The latter use 2 bit to represent 2 + 4 different numbers, It make full use of the bit and can show more informatino than the former one, But it might be a bit difficult to check out the transportaion erros.
+* Nowadays, we use the former one I think it is a compromise of effiency and accuracy.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1&gt;2.Braille code and Binary code&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Why Braille use concave - convex but not use concave -  flat - convex to represent more?
+* Because as the reason talked above, People can not tell comfortably the difference about concave and flat, the different is slightly small.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;'ble' in Braile code represent a precedence codes or shift codes
+let your shift letters to numbers&lt;/p&gt;
+&lt;p&gt;six dot in Bralie code reprensent a escape code
+let you escape from the orgin decode.&lt;/p&gt;
+&lt;h1&gt;3.Torchlight: Introduction of Electron theory&lt;/h1&gt;
+&lt;p&gt;atom:
+proton + charge
+electron -charge
+neutron&lt;/p&gt;
+&lt;p&gt;molecules made from atoms
+water and salt is compound
+salt water is mixture&lt;/p&gt;
+&lt;p&gt;something are good for conduting electron - conductor
+something are not so good - insulatro&lt;/p&gt;
+&lt;p&gt;Alessandro Volta, 1745-1827 Electron potential
+Andre Marie Ampere, 1775-1836 Current($ I $)
+George Simon Ohm, 1789-1854 ($ R $)&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;$ I = E/R $&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;James Watt, 1736-1819 ($ P $)&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;$ P = E I $&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1&gt;4.Signal turn a round&lt;/h1&gt;</content><category term="Computer Science"></category><category term="Code"></category></entry></feed>

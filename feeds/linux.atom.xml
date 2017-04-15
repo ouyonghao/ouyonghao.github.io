@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>碎琼乱玉 - Linux</title><link href="https://ouyonghao.github.io/" rel="alternate"></link><link href="https://ouyonghao.github.io/feeds/linux.atom.xml" rel="self"></link><id>https://ouyonghao.github.io/</id><updated>2017-04-10T21:00:00+08:00</updated><entry><title>Record about Deploying VPS</title><link href="https://ouyonghao.github.io/2017Apr/install-VPS.html" rel="alternate"></link><published>2017-04-10T20:20:00+08:00</published><updated>2017-04-10T21:00:00+08:00</updated><author><name>oyh</name></author><id>tag:ouyonghao.github.io,2017-04-10:/2017Apr/install-VPS.html</id><summary type="html">&lt;p&gt;Summary： A detailed record about install VPS&lt;/p&gt;
+&lt;h2&gt;Background | Why I do this&lt;/h2&gt;
+&lt;p&gt;Yester I publish my static blog powered by &lt;a href="https://github.com/getpelican/pelican"&gt;pelican&lt;/a&gt;, Because pelican support different types of syntax (like reStructuredText, Markdown), so it require me to learn a syntax first. I choose Markdown without any hesitation since the first time …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Summary： A detailed record about install VPS&lt;/p&gt;
+&lt;h2&gt;Background | Why I do this&lt;/h2&gt;
+&lt;p&gt;Yester I publish my static blog powered by &lt;a href="https://github.com/getpelican/pelican"&gt;pelican&lt;/a&gt;, Because pelican support different types of syntax (like reStructuredText, Markdown), so it require me to learn a syntax first. I choose Markdown without any hesitation since the first time I have seen it, compared with reStructuredText which uses two semi-colon to wrap the metadata in the front of the file. It seen a bit nerd to me.&lt;/p&gt;
+&lt;p&gt;So I began to read the Markdown syntax. Though the syntax is easy to understand when  I read the document of it,  I still wondered I could remember those characters. Something amazing happened to me when I went to search the WYSIWYG editor of Markdown, Atom + &lt;a href="https://github.com/shd101wyy/markdown-preview-enhanced"&gt;markdown-preview-enhanced&lt;/a&gt; plugin is an amazing tools to write Markdown file.
+Installing the atom is simple, but the installations of its plugins are quite complex under GFW. A VPS seems to be necessary.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Document of Markdown: &lt;a href="http://http://daringfireball.net/projects/markdown/syntax"&gt;English &lt;/a&gt;        &lt;a href="http://http://www.appinn.com/markdown/"&gt;中文&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;Choose a Operator&lt;/h2&gt;
+&lt;p&gt;There are lots of Virtual Network Operators you could choose. I recommend Host1plus which offers great buys on Virtual Private Service. Its lowest price is at $2.5 per month.&lt;/p&gt;
+&lt;p&gt;More operators you could get on the search engine.&lt;/p&gt;
+&lt;h2&gt;Configure your server&lt;/h2&gt;
+&lt;p&gt;After you register, blind your service, you first connect to the server through ssh service using Putty or Xshell.&lt;/p&gt;
+&lt;h3&gt;1. Change SSH Port&lt;/h3&gt;
+&lt;p&gt;Nowadays, network attacks would screen Port 22 and hack your server with the Exhaustive method to crack the password. So The first step is to change your ssh port&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;[user@localhost]$vi /etc/ssh/sshd_config
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In vi using &lt;code&gt;/&lt;/code&gt; to search "# Port 22", then add another line type "Port X"$X\in(0, 65535)$， &lt;code&gt;ESC&lt;/code&gt; and  &lt;code&gt;:wq&lt;/code&gt; to quit Edit mode, save and quit the file.
+Then restart ssh service with new command in Centos.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;[user@localhost]$systemctl restart sshd.service
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You could open a new terminal to test whether the customized port is available or not. If failed, you should go to check the iptables firewall and configure it to allow your port X to work normally.(A simple work is to copy the default configure of Port 22 and change the number to X, operation is the same)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;[user@localhost]$service iptables status
+[user@localhost]$vi /etc/sysconfig/iptables
+[user@localhost]systemctl restart iptables.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Done! You can connnet your server with the new port X.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;For more info about firewall  click &lt;a href="https://linux.cn/article-8278-1.html"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3&gt;2. Forbid log in through Administrator, add new user&lt;/h3&gt;
+&lt;p&gt;Add new user&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;[user@localhost]$useradd newuser # add a new user
+[user@localhost]$passwd newsuser # configure a password
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;and the delete &lt;code&gt;#&lt;/code&gt; in front of "PermitRootLogin: yes" and figure it to no.
+For convenience, add the new user into &lt;code&gt;/etc/sudoers&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;[user@localhost]$sudo visudo
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;find "[root]    ALL=(ALL:ALL)   ALL" and add:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;[user]    ALL=(ALL:ALL)   ALL
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Then you could use &lt;code&gt;sudo&lt;/code&gt; command in user time.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;For more info about sudo command click &lt;a href="https://linux.cn/article-8278-1.html"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;</content><category term="Linux"></category></entry></feed>

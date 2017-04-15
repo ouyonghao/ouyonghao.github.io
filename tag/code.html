@@ -2,7 +2,7 @@
 <html lang="chinese (simplified)">
 <head>
     <meta charset="utf-8">
-    <title>碎琼乱玉 - Record about Deploying VPS</title>
+    <title>碎琼乱玉 - Code</title>
     <meta name="description" content="">
     <meta name="author" content="oyh">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -55,79 +55,93 @@
     <div class="row">
 
         <div class="span9">
+        
+
+        
+
+
     <div class='article'>
         <div class="content-title">
-            <h1>Record about Deploying VPS</h1>
-Mon 10 April 2017
+            <a href="https://ouyonghao.github.io/2017Apr/Code.html"><h1>Code</h1></a>
+Sat 15 April 2017
 
 by <a class="url fn" href="https://ouyonghao.github.io/author/oyh.html">oyh</a>
  
 
 
+ 
         </div>
-	
-        <div><p>Summary： A detailed record about install VPS</p>
-<h2>Background | Why I do this</h2>
-<p>Yester I publish my static blog powered by <a href="https://github.com/getpelican/pelican">pelican</a>, Because pelican support different types of syntax (like reStructuredText, Markdown), so it require me to learn a syntax first. I choose Markdown without any hesitation since the first time I have seen it, compared with reStructuredText which uses two semi-colon to wrap the metadata in the front of the file. It seen a bit nerd to me.</p>
-<p>So I began to read the Markdown syntax. Though the syntax is easy to understand when  I read the document of it,  I still wondered I could remember those characters. Something amazing happened to me when I went to search the WYSIWYG editor of Markdown, Atom + <a href="https://github.com/shd101wyy/markdown-preview-enhanced">markdown-preview-enhanced</a> plugin is an amazing tools to write Markdown file.
-Installing the atom is simple, but the installations of its plugins are quite complex under GFW. A VPS seems to be necessary.</p>
+        
+        <div><p>Summary： Reading note of 'code'</p>
+<p>code(kod)...</p>
+<p>3.b A system of symbols, letters. or words given certain arbitray meanings, used for transportring messages requiring secrecy or brevity.</p>
+<p>signal-&gt; data -&gt; information</p>
+<h1>1.How we chat with each other in a client and dark environmet</h1>
+<p>represent 'how are you'
+A-&gt;1, B-&gt;2, C-&gt;3 ... Z-&gt;26  total 131
+Morese Code         total 32</p>
 <blockquote>
-<p>Document of Markdown: <a href="http://http://daringfireball.net/projects/markdown/syntax">English </a>        <a href="http://http://www.appinn.com/markdown/">中文</a></p>
+<p>? What is the mechanism of reduing code time
+Reducing code times by combine those Letters with a high frequency in a short code lie 'E' and 'T' in Morese Code;
+Using all combination of the code bit</p>
 </blockquote>
-<h2>Choose a Operator</h2>
-<p>There are lots of Virtual Network Operators you could choose. I recommend Host1plus which offers great buys on Virtual Private Service. Its lowest price is at $2.5 per month.</p>
-<p>More operators you could get on the search engine.</p>
-<h2>Configure your server</h2>
-<p>After you register, blind your service, you first connect to the server through ssh service using Putty or Xshell.</p>
-<h3>1. Change SSH Port</h3>
-<p>Nowadays, network attacks would screen Port 22 and hack your server with the Exhaustive method to crack the password. So The first step is to change your ssh port</p>
-<div class="highlight"><pre><span></span>[user@localhost]$vi /etc/ssh/sshd_config
-</pre></div>
-
-
-<p>In vi using <code>/</code> to search "# Port 22", then add another line type "Port X"$X\in(0, 65535)$， <code>ESC</code> and  <code>:wq</code> to quit Edit mode, save and quit the file.
-Then restart ssh service with new command in Centos.</p>
-<div class="highlight"><pre><span></span>[user@localhost]$systemctl restart sshd.service
-</pre></div>
-
-
-<p>You could open a new terminal to test whether the customized port is available or not. If failed, you should go to check the iptables firewall and configure it to allow your port X to work normally.(A simple work is to copy the default configure of Port 22 and change the number to X, operation is the same)</p>
-<div class="highlight"><pre><span></span>[user@localhost]$service iptables status
-[user@localhost]$vi /etc/sysconfig/iptables
-[user@localhost]systemctl restart iptables.
-</pre></div>
-
-
-<p>Done! You can connnet your server with the new port X.</p>
+<p>Morese Code Sheet the next sheet is two times than the former one:
+1 sheet 2
+2 shhet 4
+3 sheet 8
+4 sheet 16</p>
+<p>Total 2+4+8+16=30</p>
 <blockquote>
-<p>For more info about firewall  click <a href="https://linux.cn/article-8278-1.html">here</a>.</p>
+<p>? Why we represent 00 for 0, 01 for 1, 10 for 2 ... but not 0 for 0, 1 for 1, 01 for 2?
+<em> The former use 2 bit to represent 4 different numbers, It can be normalized and convenient for remembering.
+</em> The latter use 2 bit to represent 2 + 4 different numbers, It make full use of the bit and can show more informatino than the former one, But it might be a bit difficult to check out the transportaion erros.
+* Nowadays, we use the former one I think it is a compromise of effiency and accuracy.</p>
 </blockquote>
-<h3>2. Forbid log in through Administrator, add new user</h3>
-<p>Add new user</p>
-<div class="highlight"><pre><span></span>[user@localhost]$useradd newuser # add a new user
-[user@localhost]$passwd newsuser # configure a password
-</pre></div>
-
-
-<p>and the delete <code>#</code> in front of "PermitRootLogin: yes" and figure it to no.
-For convenience, add the new user into <code>/etc/sudoers</code>:</p>
-<div class="highlight"><pre><span></span>[user@localhost]$sudo visudo
-</pre></div>
-
-
-<p>find "[root]    ALL=(ALL:ALL)   ALL" and add:</p>
-<div class="highlight"><pre><span></span>[user]    ALL=(ALL:ALL)   ALL
-</pre></div>
-
-
-<p>Then you could use <code>sudo</code> command in user time.</p>
+<h1>2.Braille code and Binary code</h1>
 <blockquote>
-<p>For more info about sudo command click <a href="https://linux.cn/article-8278-1.html">here</a>.</p>
-</blockquote></div>
-	
-        <hr>
-
+<p>Why Braille use concave - convex but not use concave -  flat - convex to represent more?
+* Because as the reason talked above, People can not tell comfortably the difference about concave and flat, the different is slightly small.</p>
+</blockquote>
+<p>'ble' in Braile code represent a precedence codes or shift codes
+let your shift letters to numbers</p>
+<p>six dot in Bralie code reprensent a escape code
+let you escape from the orgin decode.</p>
+<h1>3.Torchlight: Introduction of Electron theory</h1>
+<p>atom:
+proton + charge
+electron -charge
+neutron</p>
+<p>molecules made from atoms
+water and salt is compound
+salt water is mixture</p>
+<p>something are good for conduting electron - conductor
+something are not so good - insulatro</p>
+<p>Alessandro Volta, 1745-1827 Electron potential
+Andre Marie Ampere, 1775-1836 Current($ I $)
+George Simon Ohm, 1789-1854 ($ R $)</p>
+<blockquote>
+<p>$ I = E/R $</p>
+</blockquote>
+<p>James Watt, 1736-1819 ($ P $)</p>
+<blockquote>
+<p>$ P = E I $</p>
+</blockquote>
+<h1>4.Signal turn a round</h1></div>
+        <hr />
     </div>
+		
+<div class="pagination">
+<ul>
+    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+
+    <li class="active"><a href="https://ouyonghao.github.io/tag/code.html">1</a></li>
+
+    <li class="next disabled"><a href="#">&rarr; Next</a></li>
+
+</ul>
+</div>
+ 
+  
         </div>
         
         <div class="span3">
