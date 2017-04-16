@@ -62,8 +62,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="https://ouyonghao.github.io/2017Apr/Code.html"><h1>Code</h1></a>
-Sat 15 April 2017
+            <a href="https://ouyonghao.github.io/2017Apr/error-appear-when-pelican-generate-an-error-md-file.html"><h1>Error appear when pelican generate an error `.md` file</h1></a>
+Sun 16 April 2017
 
 by <a class="url fn" href="https://ouyonghao.github.io/author/oyh.html">oyh</a>
  
@@ -72,64 +72,103 @@ by <a class="url fn" href="https://ouyonghao.github.io/author/oyh.html">oyh</a>
  
         </div>
         
-        <div><p>Summary： Reading note of 'code'</p>
+        <div><p>Summary： AttributeError hang out when markdown file written with vim with wrong encoding</p>
+<p>When <code>.md</code> file has wrong metatag in the front of the file
+It can not generate a propriate object that has been defined.</p>
+<p>I wrote </p>
+<blockquote>
+<p>Slug: Code:The Hidden Language of Computer Harware and Software
+in my <code>.md</code> file</p>
+</blockquote>
+<p>But I change Slug value several times, It did not work.
+Until I deleted this file written by vim, The generator works.</p>
+<p>It return a Error below:</p>
+<div class="highlight"><pre><span></span><span class="n">CRITICAL</span><span class="p">:</span> <span class="ne">AttributeError</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span> <span class="nb">object</span> <span class="n">has</span> <span class="n">no</span> <span class="n">attribute</span> <span class="s1">&#39;slug&#39;</span> <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+
+    <span class="n">File</span> <span class="s2">&quot;c:\programdata</span><span class="se">\a</span><span class="s2">naconda3\Lib</span><span class="se">\r</span><span class="s2">unpy.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">193</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_run_module_as_main</span>     
+    <span class="s2">&quot;__main__&quot;</span><span class="p">,</span> <span class="n">mod_spec</span><span class="p">)</span>
+
+    <span class="n">File</span> <span class="s2">&quot;c:\programdata</span><span class="se">\a</span><span class="s2">naconda3\Lib</span><span class="se">\r</span><span class="s2">unpy.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">85</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_run_code</span>     
+        <span class="k">exec</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">run_globals</span><span class="p">)</span>
+
+    <span class="n">File</span> <span class="s2">&quot;C:\Users\oyh\myblog</span><span class="se">\b</span><span class="s2">log\Scripts\pelican.exe\__main__.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">9</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+
+    <span class="n">File</span> <span class="s2">&quot;c:\users\oyh\myblog</span><span class="se">\b</span><span class="s2">log\lib\site-packages\pelican\__init__.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">487</span><span class="p">,</span> <span class="ow">in</span> <span class="n">main</span>     
+        <span class="n">pelican</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+    <span class="n">File</span> <span class="s2">&quot;c:\users\oyh\myblog</span><span class="se">\b</span><span class="s2">log\lib\site-packages\pelican\__init__.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">179</span><span class="p">,</span> <span class="ow">in</span> <span class="n">run</span>     
+        <span class="n">p</span><span class="o">.</span><span class="n">generate_output</span><span class="p">(</span><span class="n">writer</span><span class="p">)</span>
+
+    <span class="n">File</span> <span class="s2">&quot;c:\users\oyh\myblog</span><span class="se">\b</span><span class="s2">log\lib\site-packages\pelican\generators.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">600</span><span class="p">,</span> <span class="ow">in</span> <span class="n">generate_output</span>     
+        <span class="bp">self</span><span class="o">.</span><span class="n">generate_pages</span><span class="p">(</span><span class="n">writer</span><span class="p">)</span>
+
+    <span class="n">File</span> <span class="s2">&quot;c:\users\oyh\myblog</span><span class="se">\b</span><span class="s2">log\lib\site-packages\pelican\generators.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">494</span><span class="p">,</span> <span class="ow">in</span> <span class="n">generate_pages</span>     
+        <span class="bp">self</span><span class="o">.</span><span class="n">generate_articles</span><span class="p">(</span><span class="n">write</span><span class="p">)</span>   
+    <span class="n">File</span> <span class="s2">&quot;c:\users\oyh\myblog</span><span class="se">\b</span><span class="s2">log\lib\site-packages\pelican\generators.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">369</span><span class="p">,</span> <span class="ow">in</span> <span class="n">generate_articles</span>
+        <span class="n">write</span><span class="p">(</span><span class="n">article</span><span class="o">.</span><span class="n">save_as</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="n">article</span><span class="o">.</span><span class="n">template</span><span class="p">),</span>
+
+    <span class="n">File</span> <span class="s2">&quot;c:\users\oyh\myblog</span><span class="se">\b</span><span class="s2">log\lib\site-packages\pelican\contents.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">330</span><span class="p">,</span> <span class="ow">in</span> <span class="n">save_as</span>     
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_url_setting</span><span class="p">(</span><span class="s1">&#39;save_as&#39;</span><span class="p">)</span>
+
+    <span class="n">File</span> <span class="s2">&quot;c:\users\oyh\myblog</span><span class="se">\b</span><span class="s2">log\lib\site-packages\pelican\contents.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">188</span><span class="p">,</span> <span class="ow">in</span> <span class="n">get_url_setting</span>     
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_expand_settings</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+    <span class="n">File</span> <span class="s2">&quot;c:\users\oyh\myblog</span><span class="se">\b</span><span class="s2">log\lib\site-packages\pelican\contents.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">182</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_expand_settings</span>     
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">[</span><span class="n">fq_key</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">url_format</span><span class="p">)</span>
+
+    <span class="n">File</span> <span class="s2">&quot;c:\users\oyh\myblog</span><span class="se">\b</span><span class="s2">log\lib\site-packages\pelican\contents.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">175</span><span class="p">,</span> <span class="ow">in</span> <span class="n">url_format</span>
+        <span class="s1">&#39;tag&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">slug</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;tag&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> 
+        <span class="ne">AttributeError</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span> <span class="nb">object</span> <span class="n">has</span> <span class="n">no</span> <span class="n">attribute</span> <span class="s1">&#39;slug&#39;</span>
+</pre></div>
+
+
+<h1>Locale Error</h1>
+<div class="highlight"><pre><span></span>    <span class="n">ERROR</span><span class="p">:</span> <span class="n">Could</span> <span class="ow">not</span> <span class="n">process</span> <span class="o">.</span>\<span class="n">Code</span><span class="o">.</span><span class="n">md</span>
+    <span class="o">|</span> <span class="ne">ValueError</span><span class="p">:</span> <span class="n">embedded</span> <span class="n">null</span> <span class="n">byte</span>
+    <span class="o">|</span><span class="n">___</span>
+    <span class="o">|</span> <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+    <span class="o">|</span>   <span class="n">File</span> <span class="s2">&quot;c:\users\oyh\pelican\env\lib\site-packages\pelican\generators.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">523</span><span class="p">,</span> <span class="ow">in</span> <span class="n">generate_context</span>
+    <span class="o">|</span>     <span class="n">context_sender</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+    <span class="o">|</span>   <span class="n">File</span> <span class="s2">&quot;c:\users\oyh\pelican\env\lib\site-packages\pelican</span><span class="se">\r</span><span class="s2">eaders.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">572</span><span class="p">,</span> <span class="ow">in</span> <span class="n">read_file</span>
+    <span class="o">|</span>     <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">)</span>
+    <span class="o">|</span>   <span class="n">File</span> <span class="s2">&quot;c:\users\oyh\pelican\env\lib\site-packages\pelican\contents.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">132</span><span class="p">,</span> <span class="ow">in</span> <span class="fm">__init__</span>
+    <span class="o">|</span>     <span class="bp">self</span><span class="o">.</span><span class="n">locale_date</span> <span class="o">=</span> <span class="n">strftime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">date</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">date_format</span><span class="p">)</span>
+    <span class="o">|</span>   <span class="n">File</span> <span class="s2">&quot;c:\users\oyh\pelican\env\lib\site-packages\pelican\utils.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">82</span><span class="p">,</span> <span class="ow">in</span> <span class="n">strftime</span>
+    <span class="o">|</span>     <span class="n">formatted</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">candidate</span><span class="p">,</span> <span class="n">safe</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="o">|</span>   <span class="n">File</span> <span class="s2">&quot;c:\users\oyh\pelican\env\lib\site-packages\pelican\utils.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">109</span><span class="p">,</span> <span class="ow">in</span> <span class="n">strftime</span>
+    <span class="o">|</span>     <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">SafeDatetime</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">fmt</span><span class="p">)</span>
+    <span class="o">|</span> <span class="ne">ValueError</span><span class="p">:</span> <span class="n">embedded</span> <span class="n">null</span> <span class="n">byte</span>
+</pre></div>
+
+
+<p>Reference <a href="http://xingjian.me/how-to-fix-value-error-embedded-null-byte-error.html">How to fix Python error: ValueError: embedded null byte</a></p></div>
+        <hr />
+    </div>
+		
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="https://ouyonghao.github.io/2017Apr/Code.html"><h2>Code</h2></a>
+        <div class= "well small"> Sat 15 April 2017
+
+by <a class="url fn" href="https://ouyonghao.github.io/author/oyh.html">oyh</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>Summary： Reading note of 'code'</p>
 <p>code(kod)...</p>
 <p>3.b A system of symbols, letters. or words given certain arbitray meanings, used for transportring messages requiring secrecy or brevity.</p>
 <p>signal-&gt; data -&gt; information</p>
 <h1>1.How we chat with each other in a client and dark environmet</h1>
 <p>represent 'how are you'
-A-&gt;1, B-&gt;2, C-&gt;3 ... Z-&gt;26  total 131
-Morese Code         total 32</p>
-<blockquote>
-<p>? What is the mechanism of reduing code time
-Reducing code times by combine those Letters with a high frequency in a short code lie 'E' and 'T' in Morese Code;
-Using all combination of the code bit</p>
-</blockquote>
-<p>Morese Code Sheet the next sheet is two times than the former one:
-1 sheet 2
-2 shhet 4
-3 sheet 8
-4 sheet 16</p>
-<p>Total 2+4+8+16=30</p>
-<blockquote>
-<p>? Why we represent 00 for 0, 01 for 1, 10 for 2 ... but not 0 for 0, 1 for 1, 01 for 2?
-<em> The former use 2 bit to represent 4 different numbers, It can be normalized and convenient for remembering.
-</em> The latter use 2 bit to represent 2 + 4 different numbers, It make full use of the bit and can show more informatino than the former one, But it might be a bit difficult to check out the transportaion erros.
-* Nowadays, we use the former one I think it is a compromise of effiency and accuracy.</p>
-</blockquote>
-<h1>2.Braille code and Binary code</h1>
-<blockquote>
-<p>Why Braille use concave - convex but not use concave -  flat - convex to represent more?
-* Because as the reason talked above, People can not tell comfortably the difference about concave and flat, the different is slightly small.</p>
-</blockquote>
-<p>'ble' in Braile code represent a precedence codes or shift codes
-let your shift letters to numbers</p>
-<p>six dot in Bralie code reprensent a escape code
-let you escape from the orgin decode.</p>
-<h1>3.Torchlight: Introduction of Electron theory</h1>
-<p>atom:
-proton + charge
-electron -charge
-neutron</p>
-<p>molecules made from atoms
-water and salt is compound
-salt water is mixture</p>
-<p>something are good for conduting electron - conductor
-something are not so good - insulatro</p>
-<p>Alessandro Volta, 1745-1827 Electron potential
-Andre Marie Ampere, 1775-1836 Current($ I $)
-George Simon Ohm, 1789-1854 ($ R $)</p>
-<blockquote>
-<p>$ I = E/R $</p>
-</blockquote>
-<p>James Watt, 1736-1819 ($ P $)</p>
-<blockquote>
-<p>$ P = E I $</p>
-</blockquote>
-<h1>4.Signal turn a round</h1></div>
-        <hr />
-    </div>
-		
+A-&gt;1 …</p> <a class="btn btn-info xsmall" href="https://ouyonghao.github.io/2017Apr/Code.html">read more</a></div>
+    </div>	
+				
 
  
         
@@ -387,7 +426,7 @@ MathJax.Hub.Config({
 <footer>
 <br />
 <p>
-<a href="https://ouyonghao.github.io">碎琼乱玉</a> &copy; oyh 2017-04-15
+<a href="https://ouyonghao.github.io">碎琼乱玉</a> &copy; oyh 2017-04-16
 powered by <a href="https://blog.getpelican.com/" target="view_windows">pelican</a>
 </p>
 </footer>

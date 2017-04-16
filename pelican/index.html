@@ -62,8 +62,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="https://ouyonghao.github.io/2017Apr/Running Error of pelican.html"><h1>Running Error of pelican.md</h1></a>
-Thu 13 April 2017
+            <a href="https://ouyonghao.github.io/2017Apr/error-appear-when-pelican-generate-an-error-md-file.html"><h1>Error appear when pelican generate an error `.md` file</h1></a>
+Sun 16 April 2017
 
 by <a class="url fn" href="https://ouyonghao.github.io/author/oyh.html">oyh</a>
  
@@ -72,7 +72,95 @@ by <a class="url fn" href="https://ouyonghao.github.io/author/oyh.html">oyh</a>
  
         </div>
         
-        <div><p>Summary： Some Error (Warning) I meet when I turn <code>.md</code> to <code>.html</code></p>
+        <div><p>Summary： AttributeError hang out when markdown file written with vim with wrong encoding</p>
+<p>When <code>.md</code> file has wrong metatag in the front of the file
+It can not generate a propriate object that has been defined.</p>
+<p>I wrote </p>
+<blockquote>
+<p>Slug: Code:The Hidden Language of Computer Harware and Software
+in my <code>.md</code> file</p>
+</blockquote>
+<p>But I change Slug value several times, It did not work.
+Until I deleted this file written by vim, The generator works.</p>
+<p>It return a Error below:</p>
+<div class="highlight"><pre><span></span><span class="n">CRITICAL</span><span class="p">:</span> <span class="ne">AttributeError</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span> <span class="nb">object</span> <span class="n">has</span> <span class="n">no</span> <span class="n">attribute</span> <span class="s1">&#39;slug&#39;</span> <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+
+    <span class="n">File</span> <span class="s2">&quot;c:\programdata</span><span class="se">\a</span><span class="s2">naconda3\Lib</span><span class="se">\r</span><span class="s2">unpy.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">193</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_run_module_as_main</span>     
+    <span class="s2">&quot;__main__&quot;</span><span class="p">,</span> <span class="n">mod_spec</span><span class="p">)</span>
+
+    <span class="n">File</span> <span class="s2">&quot;c:\programdata</span><span class="se">\a</span><span class="s2">naconda3\Lib</span><span class="se">\r</span><span class="s2">unpy.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">85</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_run_code</span>     
+        <span class="k">exec</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">run_globals</span><span class="p">)</span>
+
+    <span class="n">File</span> <span class="s2">&quot;C:\Users\oyh\myblog</span><span class="se">\b</span><span class="s2">log\Scripts\pelican.exe\__main__.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">9</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+
+    <span class="n">File</span> <span class="s2">&quot;c:\users\oyh\myblog</span><span class="se">\b</span><span class="s2">log\lib\site-packages\pelican\__init__.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">487</span><span class="p">,</span> <span class="ow">in</span> <span class="n">main</span>     
+        <span class="n">pelican</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+    <span class="n">File</span> <span class="s2">&quot;c:\users\oyh\myblog</span><span class="se">\b</span><span class="s2">log\lib\site-packages\pelican\__init__.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">179</span><span class="p">,</span> <span class="ow">in</span> <span class="n">run</span>     
+        <span class="n">p</span><span class="o">.</span><span class="n">generate_output</span><span class="p">(</span><span class="n">writer</span><span class="p">)</span>
+
+    <span class="n">File</span> <span class="s2">&quot;c:\users\oyh\myblog</span><span class="se">\b</span><span class="s2">log\lib\site-packages\pelican\generators.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">600</span><span class="p">,</span> <span class="ow">in</span> <span class="n">generate_output</span>     
+        <span class="bp">self</span><span class="o">.</span><span class="n">generate_pages</span><span class="p">(</span><span class="n">writer</span><span class="p">)</span>
+
+    <span class="n">File</span> <span class="s2">&quot;c:\users\oyh\myblog</span><span class="se">\b</span><span class="s2">log\lib\site-packages\pelican\generators.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">494</span><span class="p">,</span> <span class="ow">in</span> <span class="n">generate_pages</span>     
+        <span class="bp">self</span><span class="o">.</span><span class="n">generate_articles</span><span class="p">(</span><span class="n">write</span><span class="p">)</span>   
+    <span class="n">File</span> <span class="s2">&quot;c:\users\oyh\myblog</span><span class="se">\b</span><span class="s2">log\lib\site-packages\pelican\generators.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">369</span><span class="p">,</span> <span class="ow">in</span> <span class="n">generate_articles</span>
+        <span class="n">write</span><span class="p">(</span><span class="n">article</span><span class="o">.</span><span class="n">save_as</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="n">article</span><span class="o">.</span><span class="n">template</span><span class="p">),</span>
+
+    <span class="n">File</span> <span class="s2">&quot;c:\users\oyh\myblog</span><span class="se">\b</span><span class="s2">log\lib\site-packages\pelican\contents.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">330</span><span class="p">,</span> <span class="ow">in</span> <span class="n">save_as</span>     
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_url_setting</span><span class="p">(</span><span class="s1">&#39;save_as&#39;</span><span class="p">)</span>
+
+    <span class="n">File</span> <span class="s2">&quot;c:\users\oyh\myblog</span><span class="se">\b</span><span class="s2">log\lib\site-packages\pelican\contents.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">188</span><span class="p">,</span> <span class="ow">in</span> <span class="n">get_url_setting</span>     
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_expand_settings</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+    <span class="n">File</span> <span class="s2">&quot;c:\users\oyh\myblog</span><span class="se">\b</span><span class="s2">log\lib\site-packages\pelican\contents.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">182</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_expand_settings</span>     
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">[</span><span class="n">fq_key</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">url_format</span><span class="p">)</span>
+
+    <span class="n">File</span> <span class="s2">&quot;c:\users\oyh\myblog</span><span class="se">\b</span><span class="s2">log\lib\site-packages\pelican\contents.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">175</span><span class="p">,</span> <span class="ow">in</span> <span class="n">url_format</span>
+        <span class="s1">&#39;tag&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">slug</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;tag&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> 
+        <span class="ne">AttributeError</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span> <span class="nb">object</span> <span class="n">has</span> <span class="n">no</span> <span class="n">attribute</span> <span class="s1">&#39;slug&#39;</span>
+</pre></div>
+
+
+<h1>Locale Error</h1>
+<div class="highlight"><pre><span></span>    <span class="n">ERROR</span><span class="p">:</span> <span class="n">Could</span> <span class="ow">not</span> <span class="n">process</span> <span class="o">.</span>\<span class="n">Code</span><span class="o">.</span><span class="n">md</span>
+    <span class="o">|</span> <span class="ne">ValueError</span><span class="p">:</span> <span class="n">embedded</span> <span class="n">null</span> <span class="n">byte</span>
+    <span class="o">|</span><span class="n">___</span>
+    <span class="o">|</span> <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+    <span class="o">|</span>   <span class="n">File</span> <span class="s2">&quot;c:\users\oyh\pelican\env\lib\site-packages\pelican\generators.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">523</span><span class="p">,</span> <span class="ow">in</span> <span class="n">generate_context</span>
+    <span class="o">|</span>     <span class="n">context_sender</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+    <span class="o">|</span>   <span class="n">File</span> <span class="s2">&quot;c:\users\oyh\pelican\env\lib\site-packages\pelican</span><span class="se">\r</span><span class="s2">eaders.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">572</span><span class="p">,</span> <span class="ow">in</span> <span class="n">read_file</span>
+    <span class="o">|</span>     <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">)</span>
+    <span class="o">|</span>   <span class="n">File</span> <span class="s2">&quot;c:\users\oyh\pelican\env\lib\site-packages\pelican\contents.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">132</span><span class="p">,</span> <span class="ow">in</span> <span class="fm">__init__</span>
+    <span class="o">|</span>     <span class="bp">self</span><span class="o">.</span><span class="n">locale_date</span> <span class="o">=</span> <span class="n">strftime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">date</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">date_format</span><span class="p">)</span>
+    <span class="o">|</span>   <span class="n">File</span> <span class="s2">&quot;c:\users\oyh\pelican\env\lib\site-packages\pelican\utils.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">82</span><span class="p">,</span> <span class="ow">in</span> <span class="n">strftime</span>
+    <span class="o">|</span>     <span class="n">formatted</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">candidate</span><span class="p">,</span> <span class="n">safe</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="o">|</span>   <span class="n">File</span> <span class="s2">&quot;c:\users\oyh\pelican\env\lib\site-packages\pelican\utils.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">109</span><span class="p">,</span> <span class="ow">in</span> <span class="n">strftime</span>
+    <span class="o">|</span>     <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">SafeDatetime</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">fmt</span><span class="p">)</span>
+    <span class="o">|</span> <span class="ne">ValueError</span><span class="p">:</span> <span class="n">embedded</span> <span class="n">null</span> <span class="n">byte</span>
+</pre></div>
+
+
+<p>Reference <a href="http://xingjian.me/how-to-fix-value-error-embedded-null-byte-error.html">How to fix Python error: ValueError: embedded null byte</a></p></div>
+        <hr />
+    </div>
+		
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="https://ouyonghao.github.io/2017Apr/Running Error of pelican.html"><h2>Running Error of pelican.md</h2></a>
+        <div class= "well small"> Thu 13 April 2017
+
+by <a class="url fn" href="https://ouyonghao.github.io/author/oyh.html">oyh</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>Summary： Some Error (Warning) I meet when I turn <code>.md</code> to <code>.html</code></p>
 <h1>Error of running pelican</h1>
 <h2>SITEURL Error</h2>
 <p>in <code>pelicanconf.py</code></p>
@@ -90,93 +178,9 @@ by <a class="url fn" href="https://ouyonghao.github.io/author/oyh.html">oyh</a>
 </pre></div>
 
 
-<p>After remove <code>/</code> in the end of SITEURL it would not happen!</p>
-<h2>ipynb &amp; liquid_tags plugin Error</h2>
-<p>When plugin <a href="https://github.com/getpelican/pelican-plugins/tree/master/liquid_tags">liquid_tags</a> is installed, in <code>pelicanconf.py</code> config the plugin path like this</p>
-<div class="highlight"><pre><span></span><span class="n">PLUGIN_PATHS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;plugins&quot;</span><span class="p">]</span>
-<span class="n">PLUGINS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;liquid_tags.notebook&quot;</span><span class="p">,</span> <span class="s2">&quot;pelican-ipynb.liquid&quot;</span><span class="p">]</span>
-</pre></div>
-
-
-<p>However, when we start to render out posts in <code>\content</code>, an annoying
-Warning would always push out</p>
-<div class="highlight"><pre><span></span>C:\Users\user\pelican\plugins\liquid_tags\notebook.py:70: UserWarning:
-Pelican plugin is not designed to work with IPython versions greater
-than 1.x. CSS styles have changed in later releases.
-    warnings.warn(&quot;Pelican plugin is not designed to work with IPython &quot;
-
-C:\Users\user\pelican\plugin\liquid_tags\mdx_liquid_tags.py:80: UserWarning:
-Enhanced Markdown: overriding tag &#39;notebook&#39;
-    warnings.warn(&quot;Enhanced Markdown: overriding tag &#39;%s&#39;&quot; % tag)
-</pre></div>
-
-
-<p>in <code>notebook.py</code> 80 line, we could find the author of the plugin define a
-warning</p>
-<div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">IPYTHON_VERSION</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Pelican plugin is not designed to work with IPython &quot;</span>
-                <span class="s2">&quot;versions greater than 1.x. CSS styles have changed in &quot;</span>
-                <span class="s2">&quot;later releases.&quot;</span><span class="p">)</span>
-</pre></div>
-
-
-<p>for now I want to annotate it.</p>
-<p>in <code>mdx_liquid_tags.py</code> 80 line, we could find the author of the plugin define a
-warning</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LiquidTags</span><span class="p">(</span><span class="n">markdown</span><span class="o">.</span><span class="n">Extension</span><span class="p">):</span>
-<span class="sd">&quot;&quot;&quot;Wrapper for MDPreprocessor&quot;&quot;&quot;</span>
-<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="c1"># Needed for markdown versions &gt;= 2.5</span>
-        <span class="k">for</span> <span class="n">key</span><span class="p">,</span><span class="n">value</span> <span class="ow">in</span> <span class="n">LT_CONFIG</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">,</span><span class="n">LT_HELP</span><span class="p">[</span><span class="n">key</span><span class="p">]]</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">LiquidTags</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">config</span><span class="p">)</span>
-    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-        <span class="c1"># Markdown versions &lt; 2.5</span>
-        <span class="k">for</span> <span class="n">key</span><span class="p">,</span><span class="n">value</span> <span class="ow">in</span> <span class="n">LT_CONFIG</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">config</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">config</span><span class="p">[</span><span class="n">key</span><span class="p">],</span><span class="n">LT_HELP</span><span class="p">[</span><span class="n">key</span><span class="p">]]</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">LiquidTags</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
-
-<span class="nd">@classmethod</span>
-<span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">tag</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Decorator to register a new include tag&quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">dec</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">_LiquidTagsPreprocessor</span><span class="o">.</span><span class="n">_tags</span><span class="p">:</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Enhanced Markdown: overriding tag &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="n">tag</span><span class="p">)</span>
-        <span class="n">_LiquidTagsPreprocessor</span><span class="o">.</span><span class="n">_tags</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span> <span class="o">=</span> <span class="n">func</span>
-        <span class="k">return</span> <span class="n">func</span>
-    <span class="k">return</span> <span class="n">dec</span>
-</pre></div>
-
-
-<p>in the front, It define a class through inherit from Markdown</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">_LiquidTagsPreprocessor</span><span class="p">(</span><span class="n">markdown</span><span class="o">.</span><span class="n">preprocessors</span><span class="o">.</span><span class="n">Preprocessor</span><span class="p">):</span>
-    <span class="n">_tags</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configs</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">configs</span> <span class="o">=</span> <span class="n">configs</span>
-
-        <span class="o">...</span>
-</pre></div>
-
-
-<p>When I remove <code>liquid_tags.notebook</code> from  <code>PLUGINS</code>
-The warnings don't show up again.</p>
-<p>I think the reason is:
-in <code>notebooks.py</code> line 272 in use decarator</p>
-<div class="highlight"><pre><span></span><span class="nd">@LiquidTags.register</span><span class="p">(</span><span class="s1">&#39;notebook&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">notebook</span><span class="p">(</span><span class="n">preprocessor</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">markup</span><span class="p">):</span>
-
-<span class="o">...</span>
-
-<span class="kn">from</span> <span class="nn">liquid_tags</span> <span class="kn">import</span> <span class="n">register</span>
-</pre></div>
-
-
-<p><code>notebook.py</code> -&gt;<code>liquid.py</code> -&gt; <code>mdx_liquid_tags.py</code> -&gt; <code>liquid_tags.py</code>-</p>
-<p>so it may rerun the LiquidTags.register('notebook')</p></div>
-        <hr />
-    </div>
-		
+<p>After remove <code>/</code> in the …</p> <a class="btn btn-info xsmall" href="https://ouyonghao.github.io/2017Apr/Running Error of pelican.html">read more</a></div>
+    </div>	
+				
 
  
         
@@ -340,7 +344,7 @@ MathJax.Hub.Config({
 <footer>
 <br />
 <p>
-<a href="https://ouyonghao.github.io">碎琼乱玉</a> &copy; oyh 2017-04-13
+<a href="https://ouyonghao.github.io">碎琼乱玉</a> &copy; oyh 2017-04-16
 powered by <a href="https://blog.getpelican.com/" target="view_windows">pelican</a>
 </p>
 </footer>

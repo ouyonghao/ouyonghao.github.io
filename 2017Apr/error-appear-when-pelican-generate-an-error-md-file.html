@@ -2,7 +2,7 @@
 <html lang="chinese (simplified)">
 <head>
     <meta charset="utf-8">
-    <title>碎琼乱玉 - pelican</title>
+    <title>碎琼乱玉 - Error appear when pelican generate an error `.md` file</title>
     <meta name="description" content="">
     <meta name="author" content="oyh">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -55,23 +55,17 @@
     <div class="row">
 
         <div class="span9">
-        
-
-        
-
-
     <div class='article'>
         <div class="content-title">
-            <a href="https://ouyonghao.github.io/2017Apr/error-appear-when-pelican-generate-an-error-md-file.html"><h1>Error appear when pelican generate an error `.md` file</h1></a>
+            <h1>Error appear when pelican generate an error `.md` file</h1>
 Sun 16 April 2017
 
 by <a class="url fn" href="https://ouyonghao.github.io/author/oyh.html">oyh</a>
  
 
 
- 
         </div>
-        
+	
         <div><p>Summary： AttributeError hang out when markdown file written with vim with wrong encoding</p>
 <p>When <code>.md</code> file has wrong metatag in the front of the file
 It can not generate a propriate object that has been defined.</p>
@@ -142,92 +136,10 @@ Until I deleted this file written by vim, The generator works.</p>
 
 
 <p>Reference <a href="http://xingjian.me/how-to-fix-value-error-embedded-null-byte-error.html">How to fix Python error: ValueError: embedded null byte</a></p></div>
-        <hr />
+	
+        <hr>
+
     </div>
-		
-
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="https://ouyonghao.github.io/2017Apr/Running Error of pelican.html"><h2>Running Error of pelican.md</h2></a>
-        <div class= "well small"> Thu 13 April 2017
-
-by <a class="url fn" href="https://ouyonghao.github.io/author/oyh.html">oyh</a>
- 
-
-
- </div>
-        <div class="summary"><p>Summary： Some Error (Warning) I meet when I turn <code>.md</code> to <code>.html</code></p>
-<h1>Error of running pelican</h1>
-<h2>SITEURL Error</h2>
-<p>in <code>pelicanconf.py</code></p>
-<div class="highlight"><pre><span></span><span class="n">SITEURL</span> <span class="o">=</span> <span class="s1">&#39;https://ouyonghao.github.io/&#39;</span>
-</pre></div>
-
-
-<p>when type command <code>pelican content</code></p>
-<div class="highlight"><pre><span></span>$pelican content
-</pre></div>
-
-
-<p>It may push out an WARNING</p>
-<div class="highlight"><pre><span></span><span class="n">WARNING</span><span class="o">:</span> <span class="n">Removed</span> <span class="n">extraneous</span> <span class="n">trailing</span> <span class="n">slash</span> <span class="n">from</span> <span class="n">SITEURL</span>
-</pre></div>
-
-
-<p>After remove <code>/</code> in the …</p> <a class="btn btn-info xsmall" href="https://ouyonghao.github.io/2017Apr/Running Error of pelican.html">read more</a></div>
-    </div>	
-				
-
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="https://ouyonghao.github.io/2017Apr/Mechanism of pelican-ipynb (a pelican-plugins).html"><h2>Mechanism of pelican-ipynb (a pelican-plugins)</h2></a>
-        <div class= "well small"> Wed 12 April 2017
-
-by <a class="url fn" href="https://ouyonghao.github.io/author/oyh.html">oyh</a>
- 
-
-
- </div>
-        <div class="summary"><p>Summary： A analysis about pelican-plugins of ipynb</p>
-<h2>Background | why I post this</h2>
-<p>知其然更要知其所以然，方便分析</p>
-<h3>Mechanisim</h3>
-<p>插件主要由四个文件组成：</p>
-<div class="highlight"><pre><span></span>    __init__.py         # 将当前目录下的所有`.py `文件组织成包
-    core.py             # core 模块将 `.ipynb` 转换为 `.html`，并且添加某些功能
-    ipynb.py
-    liquid.py
-    makrup.py
-</pre></div>
-
-
-<h3>core.py</h3>
-<p>首先引入__future__ 模块解决版本问题，正则表达式库，Ipython库
-接着通过try-except 根据不同版本 导入不同的库</p>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">traitlets.config</span> <span class="kn">import</span> <span class="n">Config</span>
-<span class="kn">from …</span></pre></div> <a class="btn btn-info xsmall" href="https://ouyonghao.github.io/2017Apr/Mechanism of pelican-ipynb (a pelican-plugins).html">read more</a></div>
-    </div>	
-				
-<div class="pagination">
-<ul>
-    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
-
-    <li class="active"><a href="https://ouyonghao.github.io/tag/pelican.html">1</a></li>
-
-    <li class="next disabled"><a href="#">&rarr; Next</a></li>
-
-</ul>
-</div>
- 
-  
         </div>
         
         <div class="span3">
